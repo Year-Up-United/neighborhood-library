@@ -1,10 +1,51 @@
 package com.pluralsight;
 
+import java.util.Scanner;
+
 public class Main {
+
+    // add scanner
+    private static Scanner scanner = new Scanner(System.in);
+    // create class level variable for the library
+    private static Book[] library = getPopulatedLibrary();
+
     public static void main(String[] args) {
 
-// create new book
-        Book[] library = getPopulatedLibrary();
+        ShowScreenHome();
+        // Book book = new Book(1, "ISBN: abcdefg", "The Book Title"
+        // book.checkOut("Jayla")
+        
+    }
+    private static void ShowScreenHome(){
+        String homeScreenPrompt = "Welcome to the library!\n" +
+                "Please select an option from the following:\n" +
+                "     1 - Show Available Books\n" +
+                "     2 - Show Checked Out Books\n " +
+                "    0 - Exit App\n" +
+                "(1,2,0): ";
+ 
+        // define opotion
+        int option;
+        do {
+            System.out.print(homeScreenPrompt);
+            option = scanner.nextInt();
+            scanner.nextLine();
+            if (option == 1) {
+                ShowScreenAvailableBooks();
+            } else if (option == 2) {
+                ShowScreenCheckedOutBooks();
+            } else if (option == 0) {
+                System.out.println("Exiting the library, have a nice day!");
+            } else {
+                System.out.println("Not a valid option, please try again.");
+            }
+        } while (option != 0); 
+        
+    }
+    private static void ShowScreenAvailableBooks(){
+        System.out.println(".....todo available books menu here:");
+    }
+    private static void ShowScreenCheckedOutBooks(){
 
     }
 
