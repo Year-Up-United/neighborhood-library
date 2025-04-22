@@ -24,7 +24,7 @@ public class Main {
                 "    0 - Exit App\n" +
                 "(1,2,0): ";
  
-        // define opotion
+        // define option
         int option;
         do {
             System.out.print(homeScreenPrompt);
@@ -43,13 +43,86 @@ public class Main {
         
     }
     private static void ShowScreenAvailableBooks(){
-        System.out.println(".....todo available books menu here:");
+        System.out.println("\nAvailable Books:\n");
+
+        boolean anyAvailable = false;
+        for (Book book : library) {
+            if (!book.isCheckedOut()) {
+                System.out.println("ID: " + book.getId());
+                System.out.println("Title: " + book.getTitle());
+                System.out.println("ISBN: " + book.getIsbn());
+                System.out.println();
+                anyAvailable = true;
+            }
+        }
+        if (!anyAvailable) {
+            System.out.println("No books are currently available.\n");
+            return;
+        }
+
+        System.out.print("Enter the ID of the book to check out, or 0 to return: ");
+        int id = scanner.nextInt();
+        scanner.nextLine(); // consume newline
+
+        if (id == 0) return;
+
+        for (Book book : library) {
+            if (book.getId() == id && !book.isCheckedOut()) {
+                System.out.print("Enter your name: ");
+                String name = scanner.nextLine();
+                book.checkOut(name);
+                System.out.println("Your book is checked out successfully.\n");
+                return;
+            }
+        }
+
+        System.out.println("Invalid ID or book is already checked out.\n");
+
+
+
     }
+
+
     private static void ShowScreenCheckedOutBooks(){
+        System.out.println("\nChecked Out Books:\n");
 
+        boolean anyCheckedOut = false;
+        for (Book book : library) {
+            if (book.isCheckedOut()) {
+                System.out.println("ID: " + book.getId());
+                System.out.println("Title: " + book.getTitle());
+                System.out.println("ISBN: " + book.getIsbn());
+                System.out.println("Checked out to: " + book.getCheckedOutTo());
+                System.out.println();
+                anyCheckedOut = true;
+            }
+    }
+        if (!anyCheckedOut) {
+            System.out.println("No books are currently checked out.\n");
+            return;
+        }
+
+        System.out.print("Enter 'C' to check in a book, or 'X' to return: ");
+        String input = scanner.nextLine();
+
+        if (input.equalsIgnoreCase("C")) {
+            System.out.print("Enter the ID of the book to check in: ");
+            int id = scanner.nextInt();
+            scanner.nextLine(); // consume newline
+            for (Book book : library) {
+                if (book.getId() == id && book.isCheckedOut()) {
+                    book.checkIn();
+                    System.out.println("Your book has been checked in successfully.\n");
+                    return;
+                }
+            }
+
+            System.out.println("Invalid ID or the book is not checked out.\n");
+        }
     }
 
-    private static Book[] getPopulatedLibrary(){
+
+            private static Book[] getPopulatedLibrary(){
     Book[]library = new Book[20];
 
         library[0] = new Book(1, "ISBN 978-0-679-73232-2", "Their Eyes Were Watching God by Zora Neale Hurston");
@@ -77,4 +150,6 @@ public class Main {
         return library;
 
     }
+
+
 }
