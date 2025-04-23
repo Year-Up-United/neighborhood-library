@@ -3,7 +3,7 @@ package com.pluralsight;
 import java.util.Scanner;
 
 public class Main {
-
+    private static Console console = new Console();
     // add scanner
     private static Scanner scanner = new Scanner(System.in);
     // create class level variable for the library
@@ -30,6 +30,7 @@ public class Main {
             System.out.print(homeScreenPrompt);
             option = scanner.nextInt();
             scanner.nextLine();
+            option = console.promptForInt(homeScreenPrompt);
             if (option == 1) {
                 ShowScreenAvailableBooks();
             } else if (option == 2) {
