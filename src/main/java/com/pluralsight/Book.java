@@ -62,4 +62,14 @@ public class Book {
         this.isCheckedOut = false;
     }
 
+    public String getFormattedString(){
+        if(this.isCheckedOut){
+            return String.format("%-5d %-55s %-23s Checked out to: %s", this.id, this.title, this.isbn, this.checkedOutTo);
+        }
+        else{
+            return String.format("%-5d %-55s %-23s", this.id, this.title, this.isbn);
+        }
+
+
+    }
 }
